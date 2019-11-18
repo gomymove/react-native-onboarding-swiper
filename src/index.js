@@ -110,9 +110,6 @@ class Onboarding extends Component {
   render() {
     const {
       pages,
-      alterBottomColor,
-      bottomBarHeight,
-      bottomBarColor,
       controlStatusBar,
       showSkip,
       showNext,
@@ -134,10 +131,6 @@ class Onboarding extends Component {
     const currentBackgroundColor = currentPage.backgroundColor;
     const isLight = tinycolor(currentBackgroundColor).getBrightness() > 180;
     const barStyle = isLight ? 'dark-content' : 'light-content';
-    const bottomBarHighlight =
-      alterBottomColor !== undefined
-        ? alterBottomColor
-        : this.props.bottomBarHighlight;
 
     let backgroundColor = currentBackgroundColor;
     if (
@@ -150,12 +143,6 @@ class Onboarding extends Component {
         inputRange: [0, 1],
         outputRange: [previousBackgroundColor, currentBackgroundColor],
       });
-    }
-
-    if (alterBottomColor !== undefined) {
-      console.warn(
-        'The prop alterBottomColor on react-native-onboarding-swiper is deprecated and will be removed soon. Use `bottomBarHighlight` instead.'
-      );
     }
 
     const skipFun =
@@ -193,11 +180,9 @@ class Onboarding extends Component {
           {...flatlistProps}
         />
         {showPagination && (
-          <SafeAreaView style={bottomBarHighlight ? styles.overlay : {}}>
+          <SafeAreaView>
             <Pagination
               isLight={isLight}
-              bottomBarHeight={bottomBarHeight}
-              bottomBarColor={bottomBarColor}
               showSkip={showSkip}
               showNext={showNext}
               showDone={showDone}
@@ -236,9 +221,6 @@ Onboarding.propTypes = {
         .isRequired,
     })
   ).isRequired,
-  bottomBarHighlight: PropTypes.bool,
-  bottomBarHeight: PropTypes.number,
-  bottomBarColor: PropTypes.string,
   controlStatusBar: PropTypes.bool,
   showSkip: PropTypes.bool,
   showNext: PropTypes.bool,
@@ -264,9 +246,6 @@ Onboarding.propTypes = {
 };
 
 Onboarding.defaultProps = {
-  bottomBarHighlight: true,
-  bottomBarHeight: 60,
-  bottomBarColor: 'transparent',
   controlStatusBar: true,
   showPagination: true,
   showSkip: true,
@@ -289,12 +268,6 @@ Onboarding.defaultProps = {
   transitionAnimationDuration: 500,
   skipToPage: null,
   pageIndexCallback: null,
-};
-
-const styles = {
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-  },
 };
 
 export default Onboarding;
