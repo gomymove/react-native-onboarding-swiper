@@ -25,48 +25,46 @@ const Pagination = ({
 }) => {
   const isLastPage = currentPage + 1 === numPages;
 
-  const SkipButtonFinal = showSkip &&
-    !isLastPage && (
-      <SkipButtonComponent
-        isLight={isLight}
-        skipLabel={skipLabel}
-		allowFontScaling={allowFontScaling}
-        onPress={() => {
-          if (typeof onSkip === 'function') {
-            if (controlStatusBar) {
-              StatusBar.setBarStyle('default', true);
-            }
-            onSkip();
+  const SkipButtonFinal = showSkip && (
+    <SkipButtonComponent
+      isLight={isLight}
+      isLastPage={isLastPage}
+      skipLabel={skipLabel}
+      allowFontScaling={allowFontScaling}
+      onPress={() => {
+        if (typeof onSkip === 'function') {
+          if (controlStatusBar) {
+            StatusBar.setBarStyle('default', true);
           }
-        }}
-      />
-    );
+          onSkip();
+        }
+      }}
+    />
+  );
 
-  const NextButtonFinal = showNext &&
-    !isLastPage && (
-      <NextButtonComponent
-        nextLabel={nextLabel}
-		allowFontScaling={allowFontScaling}
-        isLight={isLight}
-        onPress={onNext}
-      />
-    );
+  const NextButtonFinal = showNext && !isLastPage && (
+    <NextButtonComponent
+      nextLabel={nextLabel}
+      allowFontScaling={allowFontScaling}
+      isLight={isLight}
+      onPress={onNext}
+    />
+  );
 
-  const DoneButtonFinal = showDone &&
-    isLastPage && (
-      <DoneButtonComponent
-        isLight={isLight}
-		allowFontScaling={allowFontScaling}
-        onPress={() => {
-          if (typeof onDone === 'function') {
-            if (controlStatusBar) {
-              StatusBar.setBarStyle('default', true);
-            }
-            onDone();
+  const DoneButtonFinal = showDone && isLastPage && (
+    <DoneButtonComponent
+      isLight={isLight}
+      allowFontScaling={allowFontScaling}
+      onPress={() => {
+        if (typeof onDone === 'function') {
+          if (controlStatusBar) {
+            StatusBar.setBarStyle('default', true);
           }
-        }}
-      />
-    );
+          onDone();
+        }
+      }}
+    />
+  );
 
   return (
     <View
@@ -75,7 +73,6 @@ const Pagination = ({
         ...styles.container,
       }}
     >
-      <View style={styles.buttonLeft}>{SkipButtonFinal}</View>
       <Dots
         isLight={isLight}
         numPages={numPages}
@@ -83,10 +80,9 @@ const Pagination = ({
         Dot={DotComponent}
         style={styles.dots}
       />
-      <View style={styles.buttonRight}>
-        {NextButtonFinal}
-        {DoneButtonFinal}
-      </View>
+      {NextButtonFinal}
+      {DoneButtonFinal}
+      {SkipButtonFinal}
     </View>
   );
 };
@@ -118,20 +114,8 @@ Pagination.propTypes = {
 
 const styles = {
   container: {
-    paddingHorizontal: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  buttonLeft: {
-    width: 200,
-    flexShrink: 1,
-    alignItems: 'flex-start',
-  },
-  buttonRight: {
-    width: 200,
-    flexShrink: 1,
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
   },
   dots: {
     flexShrink: 0,
