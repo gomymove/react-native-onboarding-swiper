@@ -64,8 +64,8 @@ class Onboarding extends Component {
     });
   };
 
-  _onLayout = () => {
-    const { width, height } = Dimensions.get('window');
+  _onLayout = event => {
+    const { width, height } = event.nativeEvent.layout;
     this.setState({ width, height });
   };
 
