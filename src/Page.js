@@ -8,7 +8,6 @@ const Page = ({
   title,
   subtitle,
   width,
-  height,
   containerStyles,
   imageContainerStyles,
   allowFontScaling,
@@ -19,7 +18,10 @@ const Page = ({
   if (typeof title === 'string' || title instanceof String) {
     titleElement = (
       <View style={styles.padding}>
-        <Text allowFontScaling={allowFontScaling} style={[styles.title, isLight ? styles.titleLight : {}, titleStyles]}>
+        <Text
+          allowFontScaling={allowFontScaling}
+          style={[styles.title, isLight ? styles.titleLight : {}, titleStyles]}
+        >
           {title}
         </Text>
       </View>
@@ -30,7 +32,14 @@ const Page = ({
   if (typeof subtitle === 'string' || subtitle instanceof String) {
     subtitleElement = (
       <View style={styles.padding}>
-        <Text allowFontScaling={allowFontScaling} style={[styles.subtitle, isLight ? styles.subtitleLight : {}, subTitleStyles]}>
+        <Text
+          allowFontScaling={allowFontScaling}
+          style={[
+            styles.subtitle,
+            isLight ? styles.subtitleLight : {},
+            subTitleStyles,
+          ]}
+        >
           {subtitle}
         </Text>
       </View>
@@ -38,7 +47,7 @@ const Page = ({
   }
 
   return (
-    <View style={[styles.container, containerStyles, { width, height }]}>
+    <View style={[styles.container, containerStyles, { width }]}>
       <View style={[styles.imageContainer, imageContainerStyles]}>{image}</View>
       {titleElement}
       {subtitleElement}
@@ -58,7 +67,6 @@ Page.propTypes = {
   titleStyles: Text.propTypes.style,
   subTitleStyles: Text.propTypes.style,
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
 };
 
 Page.defaultProps = {
@@ -69,20 +77,17 @@ Page.defaultProps = {
   subTitleStyles: null,
 };
 
-const { width, height } = Dimensions.get('window');
-const potrait = height > width;
-
 const styles = {
   container: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: potrait ? 'center' : 'flex-start',
-    paddingTop: potrait ? 0 : 10,
+    justifyContent: 'center',
+    paddingTop: 0,
   },
   imageContainer: {
     flex: 0,
-    paddingBottom: potrait ? 60 : 10,
+    paddingBottom: 60,
     alignItems: 'center',
     width: '100%',
   },
