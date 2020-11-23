@@ -38,6 +38,7 @@ class Onboarding extends Component {
     Animated.timing(this.state.backgroundColorAnim, {
       toValue: 1,
       duration: this.props.transitionAnimationDuration,
+      useNativeDriver: false,
     }).start();
   }
 
@@ -45,7 +46,7 @@ class Onboarding extends Component {
     if (!viewableItems[0] || this.state.currentPage === viewableItems[0].index)
       return;
 
-    this.setState(state => {
+    this.setState((state) => {
       this.props.pageIndexCallback &&
         this.props.pageIndexCallback(viewableItems[0].index);
       return {
@@ -63,7 +64,7 @@ class Onboarding extends Component {
     });
   };
 
-  _onLayout = event => {
+  _onLayout = (event) => {
     const { width } = event.nativeEvent.layout;
     this.setState({ width });
   };
@@ -160,7 +161,7 @@ class Onboarding extends Component {
       >
         {controlStatusBar && <StatusBar barStyle={barStyle} />}
         <FlatList
-          ref={list => {
+          ref={(list) => {
             this.flatList = list;
           }}
           data={pages}
