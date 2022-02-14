@@ -126,8 +126,8 @@ class Onboarding extends Component {
       flatlistProps,
       skipToPage,
     } = this.props;
-    const currentPage = pages[this.state.currentPage];
-    const currentBackgroundColor = currentPage.backgroundColor;
+    const currentPage = pages[this.state.currentPage] || pages[0];
+    const currentBackgroundColor = currentPage?.backgroundColor || '#000';
     const isLight = tinycolor(currentBackgroundColor).getBrightness() > 180;
     const barStyle = isLight ? 'dark-content' : 'light-content';
 
